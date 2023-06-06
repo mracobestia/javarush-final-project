@@ -14,9 +14,10 @@
 	<version>1.0</version>
 	<name>JiraRush</name>
 	<description>Mini-JIRA from JavaRush</description>
+	<packaging>war</packaging>
 
 	<properties>
-		<java.version>17</java.version>
+		<java.version>18</java.version>
 		<springdoc.version>2.0.2</springdoc.version>
 		<mapstruct.version>1.5.3.Final</mapstruct.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -142,6 +143,12 @@
 			<artifactId>junit-platform-launcher</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<!-- Для Maven -->
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -169,6 +176,11 @@
 				<configuration>
 					<argLine>-Dfile.encoding=UTF-8</argLine>
 				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>3.3.2</version>
 			</plugin>
 		</plugins>
 	</build>

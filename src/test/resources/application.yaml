@@ -1,4 +1,3 @@
-#  https://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html
 app:
   host-url: ${HOST_URL:http://localhost:8080}
   test-mail: ${TEST_MAIL:jira4jr@gmail.com}
@@ -7,42 +6,39 @@ app:
     core-pool-size: 8
     max-pool-size: 100
 
+spring.cache.type: none
+
 spring:
-  jpa:
-    show-sql: true
-    open-in-view: false
+  sql:
+    init:
+      mode: always
 
-# validate db by model
-    hibernate:
-      ddl-auto: validate
-
-    properties:
-      #  http://docs.jboss.org/hibernate/orm/5.3/userguide/html_single/Hibernate_User_Guide.html#configurations
-      hibernate:
-        format_sql: true
-        default_batch_fetch_size: 20
-        # https://stackoverflow.com/questions/21257819/what-is-the-difference-between-hibernate-jdbc-fetch-size-and-hibernate-jdbc-batc
-        jdbc.batch_size: 20
   datasource:
-    url: ${POSTGRES_CONNECT:jdbc:postgresql://localhost:5432/jira}
-    username: ${POSTGRES_LOGIN:postgres}
-    password: ${POSTGRES_PASSWORD:postgres}
+      driver-class-name: org.h2.Driver
+      url: jdbc:h2:mem:db;DB_CLOSE_DELAY=-1;MODE=MySQL;NON_KEYWORDS=VALUE
+      username: sa
+      password:
+  jpa:
+      show-sql: true
+      open-in-view: false
+      database-platform: org.hibernate.dialect.H2Dialect
 
+      hibernate:
+        ddl-auto: create-drop
+
+  h2:
+      console:
+        enabled: true
   liquibase:
-    changeLog: "classpath:db/changelog.sql"
+    changeLog: "classpath:db/before_test.sql"
+    enabled: true
 
-  # Jackson Fields Serialization
   jackson:
     visibility:
       field: any
       getter: none
       setter: none
       is-getter: none
-
-  # https://docs.spring.io/spring-boot/docs/current/reference/html/appendix-application-properties.html#common-application-properties-cache
-  cache:
-    cache-names: users
-    caffeine.spec: maximumSize=10000,expireAfterAccess=5m
 
   security:
     oauth2:
@@ -73,10 +69,6 @@ spring:
             user-info-uri: https://gitlab.com/api/v4/user
             user-name-attribute: email
 
-  sql:
-    init:
-      mode: always
-
   mail:
     properties:
       mail:
@@ -90,19 +82,11 @@ spring:
     port: 587
   thymeleaf.check-template-location: false
 
-logging:
-  level:
-    root: WARN
-    com.javarush.jira: DEBUG
-    com.javarush.jira.common.config.MvcConfig: WARN
-    org.springframework.web.servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver: DEBUG
-
 server:
-#  https://springdoc.org/index.html#how-can-i-deploy-springdoc-openapi-ui-behind-a-reverse-proxy
+  #  https://springdoc.org/index.html#how-can-i-deploy-springdoc-openapi-ui-behind-a-reverse-proxy
   forward-headers-strategy: framework
   servlet:
     encoding:
       charset: UTF-8 # Charset of HTTP requests and responses. Added to the "Content-Type" header if not set explicitly
       enabled: true # Enable http encoding support
       force: true
-springdoc.swagger-ui.path: /doc

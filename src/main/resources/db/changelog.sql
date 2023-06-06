@@ -266,3 +266,9 @@ INSERT INTO user_belong (id, object_id, object_type, user_id, user_type_code, st
 INSERT INTO user_belong (id, object_id, object_type, user_id, user_type_code, startpoint, endpoint) VALUES (4, 3, 2, 2, 'admin', null, null);
 INSERT INTO user_belong (id, object_id, object_type, user_id, user_type_code, startpoint, endpoint) VALUES (5, 4, 2, 2, 'admin', null, null);
 INSERT INTO user_belong (id, object_id, object_type, user_id, user_type_code, startpoint, endpoint) VALUES (6, 5, 2, 2, 'admin', null, null);
+
+--changeset kriffer:add_new_activity
+
+INSERT INTO ACTIVITY (AUTHOR_ID, TASK_ID, UPDATED, STATUS_CODE) values (1, 2, '2023-05-10 09:00:00.000000', 'in progress');
+INSERT INTO ACTIVITY (AUTHOR_ID, TASK_ID, UPDATED, STATUS_CODE) values (1, 2, '2023-05-11 15:30:00.000000', 'ready');
+INSERT INTO ACTIVITY (AUTHOR_ID, TASK_ID, UPDATED, STATUS_CODE) values (2, 2, '2023-05-12 19:05:00.000000', 'done');

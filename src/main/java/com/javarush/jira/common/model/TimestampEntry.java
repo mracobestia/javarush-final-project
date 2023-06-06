@@ -30,7 +30,7 @@ public abstract class TimestampEntry extends BaseEntity {
     }
 
     @CreationTimestamp
-    @Column(name = "startpoint", nullable = false)
+    @Column(name = "startpoint")
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     protected LocalDateTime startpoint;
 
